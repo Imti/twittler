@@ -4,9 +4,12 @@
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
 	  <style>
-        .username {font-size: 15px; color: black; font-weight: bold;}
+	    body {background-color: white;}
+	    h2 {background-color: white; width: 85px; text-indent: 10px;}
+	    .messages {display: block; width: 50%; height: 100%; border: 10px solid lightgray; background-color: lightgray}
         .timestamp {font-size: 14px; color: gray; font-weight: normal;}
         .tweet {font-size: 16px; color: black; font-weight: normal;}
+        .username {font-size: 15px; color: black; font-weight: bold;};
 	  </style>
 	</head>
   <body>
@@ -20,10 +23,12 @@
 
         display();
 		
-		$refresh.on('click', function() {
-		  $messages.text('');
-		  display();
-		});
+		function userTweets(username) {
+          return $messages.get(username);
+		}
+		
+
+		
 
         function display() {
           index = streams.home.length - 1;
@@ -35,13 +40,20 @@
 		    var $time = "<span class='timestamp'>" + "- " + time + "<span>";
 		    var $tweet = "<span class= 'tweet'>" + tweet.message + "<span>"
 
-            //$tweet.text('@' + tweet.user + ' ' + time + ' ' + tweet.message);
-
 		    $messages.append("<br>" + $user + ' ' + $time + "<br>" + $tweet + "<br>");
 
 		    index -= 1;
           }
 		}
+
+		$messages.on('click', '.username', function(e) {
+		  alert(e.target.nodeName);
+		});
+
+		$refresh.on('click', function() {
+		  $messages.text('');
+		  display();
+		});
 		
 		function convert(time) {
 		  time = Math.floor(time/1000);
@@ -51,13 +63,12 @@
 		  if(time < 86400) return Math.floor(time/3600) + 'h ';
 		  return Math.floor(time/86400) + 'd ';
 		}
-
       });
 
 	</script>
 	<h2>Twittler</h2>
 
-	<button class="refresh" enabled>refresh</button>
+	 <button class="refresh" enabled>refresh</button><br>
 		
 
 	<span class="messages"></span>
