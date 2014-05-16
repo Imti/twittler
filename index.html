@@ -40,7 +40,7 @@
 		    var $time = "<span class='timestamp'>" + "- " + time + "<span>";
 		    var $tweet = "<span class= 'tweet'>" + tweet.message + "<span>"
 
-		    $messages.append("<br>" + $user + ' ' + $time + "<br>" + $tweet + "<br>");
+		    $messages.append($user + ' ' + $time + "<br>" + $tweet + "<br><br>");
 
 		    index -= 1;
           }
@@ -68,7 +68,7 @@
 	</script>
 	<h2>Twittler</h2>
 
-	 <button class="refresh" enabled>refresh</button><br>
+	 <button class="refresh" enabled>refresh</button><br><br>
 		
 
 	<span class="messages"></span>
