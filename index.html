@@ -4,13 +4,15 @@
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
 	  <style>
-	    body {background-color: white;}
-	    h2 {background-color: white; width: 85px; text-indent: 10px;}
-	    .messages {display: block; width: 50%; height: 100%; border: 10px solid lightgray; background-color: lightgray}
+	    body {background-color: white; text-align: center;}
+	    hr {border: 0; width:100%; color: white; background-color: darkgray; height: 1px; size: 10px;}
+	    .title {font-size: 200%; font-weight: bold; display: block; border-radius: 5px 5px 0 0; width: 40%; background-color: lightgray; padding: 10px;}
+	    .refresh{display: block; width: 40%; background-color: firebrick; padding: 10px;}
+	    .messages {display: block; width: 40%; height: 100%; border-radius: 0 0 5px 5px; background-color: lightgray; padding: 10px; text-align:left; padding-left: 10px;}
+	    .username {font-size: 15px; color: black; font-weight: bold;}
         .timestamp {font-size: 14px; color: gray; font-weight: normal;}
         .tweet {font-size: 16px; color: black; font-weight: normal;}
-        .username {font-size: 15px; color: black; font-weight: bold;};
-	  </style>
+      </style>
 	</head>
   <body>
     <script>
@@ -36,18 +38,27 @@
 		    var tweet = streams.home[index];
 		    var time = convert(new Date() - tweet.created_at);
             
-            var $user = "<span class='username'>" + "@" +tweet.user + "<span>"
-		    var $time = "<span class='timestamp'>" + "- " + time + "<span>";
-		    var $tweet = "<span class= 'tweet'>" + tweet.message + "<span>"
+            var $user = "<span class='username'>" + "@" +tweet.user + "</span>"
+		    var $time = "<span class='timestamp'>" + "- " + time + "</span>";
+		    var $tweet = "<span class= 'tweet'>" + tweet.message + "</span>"
 
-		    $messages.append($user + ' ' + $time + "<br>" + $tweet + "<br><br>");
+		    $messages.append("" + $user + ' ' + $time + "<br>" + $tweet + "<br><hr>");
 
 		    index -= 1;
           }
 		}
 
-		$messages.on('click', '.username', function(e) {
-		  alert(e.target.nodeName);
+		$messages.on('click', '.username', function() {
+		  var thisUser = $(this).text().replace("@", "");
+		  var userArrayOfTweets = []
+		  var userTweets = streams.users[thisUser];
+		  for(var i = 0; i < userTweets.length; i++) {
+		    userArrayOfTweets.push(userTweets[i].message)
+		  }
+		  
+		  
+		  alert(userArrayOfTweets);
+		  //alert(userTweets);
 		});
 
 		$refresh.on('click', function() {
@@ -66,11 +77,8 @@
       });
 
 	</script>
-	<h2>Twittler</h2>
-
-	 <button class="refresh" enabled>refresh</button><br><br>
-		
-
+	<span class="title">Twittler</span>
+    <span class="refresh">refresh</span>
 	<span class="messages"></span>
   </body>
 </html>
