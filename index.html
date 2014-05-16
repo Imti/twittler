@@ -50,15 +50,13 @@
 
 		$messages.on('click', '.username', function() {
 		  var thisUser = $(this).text().replace("@", "");
-		  var userArrayOfTweets = []
-		  var userTweets = streams.users[thisUser];
-		  for(var i = 0; i < userTweets.length; i++) {
-		    userArrayOfTweets.push(userTweets[i].message)
+		  var userTweets = "@" + thisUser + "\n\n";
+		  var pullTweets = streams.users[thisUser];
+		  for(var i = pullTweets.length-1; i > 0; i--) {
+		    userTweets += (pullTweets[i].message + "\n");
 		  }
 		  
-		  
-		  alert(userArrayOfTweets);
-		  //alert(userTweets);
+		  alert(userTweets);
 		});
 
 		$refresh.on('click', function() {
